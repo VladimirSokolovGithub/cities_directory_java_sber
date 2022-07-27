@@ -25,12 +25,9 @@ public class Main {
                 }
 
             }
-
             for (City cityList : list) {
                 System.out.println(cityList);
             }
-
-
         } catch (FileNotFoundException e) {
             System.out.println("We have a problem! File Not Found.");
             e.printStackTrace();
@@ -38,19 +35,18 @@ public class Main {
             scanner.close();
         }
 
-        //sorting by city name
-        Collections.sort(list, new CityNameComparator());
+        //sort by city name, case-insensitive.
+        list.sort((citi1, citi2) ->  citi1.getName().compareToIgnoreCase(citi2.getName()));
         System.out.println("\n After sorting by city name \n");
-        for (City cityList : list) {
-            System.out.println(cityList);
-        }
+        list.forEach(System.out::println);
 
-        //sorting by federal district and city name
+
+        //sorting by federal district and city name, case-sensitive.
         Collections.sort(list, new CityDistrictAndNameComparator());
         System.out.println("\n After sorting by federal district and city name \n");
         for (City cityList : list) {
             System.out.println(cityList);
         }
-    }
 
+    }
 }

@@ -1,10 +1,10 @@
 public class City {
 
-    public String name;
-    public String region;
-    public String district;
-    public String population;
-    public String foundation;
+    private String name;
+    private String region;
+    private String district;
+    private String population;
+    private String foundation;
 
     public City(String name, String region, String district, String population, String foundation) {
 
@@ -24,5 +24,25 @@ public class City {
                 ", population=" + population +
                 ", foundation=" + foundation +
                 '}';
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public String getPopulation() {
+        return population;
+    }
+
+    public String getFoundation() {
+        return foundation;
     }
 }
