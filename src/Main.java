@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -33,10 +34,12 @@ public class Main {
             scanner.close();
         }
 
+
         //sort by city name, case-insensitive.
         list.sort((citi1, citi2) ->  citi1.getName().compareToIgnoreCase(citi2.getName()));
         System.out.println("\n After sorting by city name \n");
         list.forEach(System.out::println);
+
 
         //sorting by federal district and city name, case-sensitive.
         Collections.sort(list, new CityDistrictAndNameComparator());
@@ -44,29 +47,37 @@ public class Main {
         for (City cityList : list) {
             System.out.println(cityList);
         }
-
         System.out.println();
+
 
         //search for the city with the largest number of population
         City[] array = list.toArray(City[]::new);
-
         int max = array[0].getPopulation();
-        int i;
-        for (i = 0; i < array.length; i++) {
-            if (array[i].getPopulation() > max) {
-                max = array[i].getPopulation();
+        int index;
+        for (index = 0; index < array.length; index++) {
+            if (array[index].getPopulation() > max) {
+                max = array[index].getPopulation();
             }
         }
-        System.out.println("[" + i + "]" + " = " + max);
+        System.out.println("[" + index + "]" + " = " + max);
+        System.out.println();
 
-        /* search for the index of the element and the value with the largest number of city residents
-        by pre-sorting the array by the population field. Additional practice. */
-//        Arrays.sort(array);
-//        System.out.println("After sort array");
-//        System.out.println(Arrays.toString(array));
-//        System.out.println("[" + Arrays.binarySearch(array, array[array.length-1]) + "]" +
-//                " = " + array[array.length-1].getPopulation());
-//        System.out.println();
+
+        //find the number of cities in each region
+        int cityCount = 1;
+        String region = null;
+        list.sort((region1, region2) -> region1.getRegion().compareTo(region2.getRegion()));
+        for (int i = 0; i < list.size()-1; i++) {
+            region = list.get(i).getRegion();
+            if(list.get(i).getRegion().equals(list.get(i+1).getRegion())) {
+                cityCount ++;
+            }
+            else {
+                System.out.println(region + " - " + cityCount);
+                cityCount = 1;
+            }
+        }
+        System.out.println(region + " - " + cityCount);
 
     }
 }
